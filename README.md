@@ -1,3 +1,5 @@
-input no _in.txt
+input:
+  _in.txt
 
-python -u main.py
+execução:
+  python -u main.py
