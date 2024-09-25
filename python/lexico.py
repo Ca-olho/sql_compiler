@@ -88,7 +88,7 @@ def next_state(state,char): #Estado e caracter da fita atuais
 def start(_in,_out): #Acesso aos arquivos de input e output
     #Contadores de Linha e Token
     line = 1
-    token = 1
+    token = 0
     #Estado inicial
     state = start_state
     while 1:
@@ -111,7 +111,7 @@ def start(_in,_out): #Acesso aos arquivos de input e output
             #Se é '\n', modifica os contadores
             if char == '\n':
                 line += 1
-                token = 1
+                token = 0
             #Se final de sentença morre
             if char == '$':
                 break
