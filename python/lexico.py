@@ -86,6 +86,9 @@ def next_state(state,char): #Estado e caracter da fita atuais
 
 #Passa pelo arquivo de entrada verificando cada caracter
 def start(_in,_out): #Acesso aos arquivos de input e output
+    #Contadores de Linha e Token
+    line = 1
+    token = 1
     #Estado inicial
     state = start_state
     while 1:
@@ -94,10 +97,21 @@ def start(_in,_out): #Acesso aos arquivos de input e output
         #Se separador, salva e recomeça
         if char in separator:
             if state in final_state:
+                #add 1 no contador de token
+                token += 1
                 _out.write(output_symbol[final_state.index(state)])
-            #Se ' ' não salva
+                #Se o stado final é erro, printa o erro
+                if state == error_state:
+                    print(f"Erro! Linha:{line}, Token:{token}")
+            #Se é pra ignorar não salva
             if char not in ignore:
+                #add 1 no contador de token
+                token += 1
                 _out.write(char)
+            #Se é '\n', modifica os contadores
+            if char == '\n':
+                line += 1
+                token = 1
             #Se final de sentença morre
             if char == '$':
                 break

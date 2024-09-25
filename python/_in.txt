@@ -1,1 +1,7 @@
-table$
+create table teste;
+insert into teste(id,nome) values(1,'teste');
+select * from teste;
+abc&abc;
+123456;
+create database .database;
+$
