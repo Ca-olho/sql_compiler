@@ -11,7 +11,7 @@ token_list = []
 #Algoritimo principal
 try:
     #Começa analise lexica
-    lexico.start(_in,_lexout,token_list)
+    lexico.start(_in,_lex,token_list)
     
     #print(token_list)
 except Exception as e: 
