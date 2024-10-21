@@ -82,6 +82,7 @@ def next_state(state,char): #Estado e caracter da fita atuais
         if t[0] == state and t[1] == char:
             #Retorna o proximo estado
             return t[2]
+    #Retorna erro se nao encontrar uma transicao
     return error_state
 
 #Passa pelo arquivo de entrada verificando cada caracter
