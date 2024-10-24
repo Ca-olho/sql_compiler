@@ -1,1 +1,1 @@
-CTV;IOV(V,V)L(N,'V');S*FV;X;N;CBX;$
+IOV(V,V,V)L('V',N,N);$

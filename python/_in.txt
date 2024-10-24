@@ -1,7 +1,1 @@
-create table teste;
-insert into teste(id,nome) values(1,'teste');
-select * from teste;
-abc&abc;
-123456;
-create database .database;
-$
+insert into nome_tabela(var0,var1,var2) values('abc',2,9);$
