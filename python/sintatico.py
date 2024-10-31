@@ -85,7 +85,7 @@ def exec_lr_table(state,char): #Caracter atual da fita e estado no topo da pilha
 
 def start(_in,_out,list_t): #Acesso aos arquivos de input e output
     #Contador de token
-    token_num = 0
+    token_num = -1
     #Variavel aux
     aux_ = 1
 
