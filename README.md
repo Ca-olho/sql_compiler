@@ -13,7 +13,7 @@ exemplos de entrada em '_in.txt':
       Acc
 
   insert into nome_tabela(var0,var1,'var2') values('abc',-2,9);$
-    saida:  
+    saida:
       - Erro! Linha:1, Token:"-2"
       - Erro! Linha:1, Token:"'"
   
