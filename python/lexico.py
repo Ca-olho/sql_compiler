@@ -86,12 +86,15 @@ def next_state(state,char): #Estado e caracter da fita atuais
     return error_state
 
 #Passa pelo arquivo de entrada verificando cada caracter
-def start(_in,_out,list_t): #Acesso aos arquivos de input e output
+def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
     #Contadores de Linha e Token
     line = 1
-    token = 0
+    token_num = 0
+    #Cadeia atual sendo analizada
+    token_str = ''
     #Estado inicial
     state = start_state
+
     while 1:
         #Procura proxima caracter
         char = _in.read(1).lower()
@@ -99,26 +102,29 @@ def start(_in,_out,list_t): #Acesso aos arquivos de input e output
         if char in separator:
             if state in final_state:
                 #add 1 no contador de token
-                token += 1
+                token_num += 1
                 #add caracter ao arquivo de saida
                 _out.write(output_symbol[final_state.index(state)])
-                #add caracter, linha e numToken a lista de tokens
-                list_t.append((output_symbol[final_state.index(state)], line, token))
-                #Se o stado final é erro, printa o erro
+                #add cadeia, linha e numToken a lista de tokens
+                list_t.append((token_num, line, token_str))
+                #Se o stado final é erro, add a lista de erros
                 if state == error_state:
-                    print(f"Erro! Linha:{line}, Token:{token}")
+                    #print(f"Erro! Linha:{line}, Token:{token_num}")
+                    list_e.append((token_num, line, token_str))
+                #Reseta a cadeia atual
+                token_str = ''
             #Se é pra ignorar não salva
             if char not in ignore:
                 #add 1 no contador de token
-                token += 1
+                token_num += 1
                 #add caracter ao arquivo de saida
                 _out.write(char)
                 #add caracter, linha e numToken a lista de tokens
-                list_t.append((char, line, token))
-            #Se é '\n', reseta os contadores
+                list_t.append((token_num, line, char))
+            #Se é '\n', linha+1
             if char == '\n':
                 line += 1
-                token = 0
+                token_num = 0
             #Se final de sentença morre
             if char == '$':
                 break
@@ -126,3 +132,8 @@ def start(_in,_out,list_t): #Acesso aos arquivos de input e output
             continue
         #Procura o proximo estado
         state = next_state(state,char)
+        #Adiciona a caracter atual no final da cadeia atual
+        token_str += char
+    #Escreve todos os erros no arquivo de saida
+    for i in list_e:
+        _out.write(f'\n - Erro! Linha:{i[1]}, Token:"{i[2]}"')

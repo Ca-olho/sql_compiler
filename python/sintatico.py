@@ -27,7 +27,6 @@ error_symbol = 'X'
 
 #Tabela LR
 start_state = 0
-error_state = -1
 lr_table = [
     (0,'C','e',2),(0,'D','e',3),(0,'S','e',4),(0,'I','e',5),(0,'b','s',1),(1,';','e',6),(2,'T','e',8),(2,'B','e',9),(2,'c','s',7),(3,'T','e',8),
     (3,'B','e',9),(3,'c','s',10),(4,'(','e',12),(4,'*','e',13),(4,'d','s',11),(5,'O','e',14),(6,'$','a',-1),(7,';','r',1),(8,'V','e',15),(9,'V','e',16),
@@ -82,16 +81,19 @@ def exec_lr_table(state,char): #Caracter atual da fita e estado no topo da pilha
                     return 0
     #Empilha 'X' como simbolo de rejeicao
     stack.append(error_symbol)
-    stack.append(error_state)
     return 1
 
-def start(_in,_out): #Acesso aos arquivos de input e output
+def start(_in,_out,list_t): #Acesso aos arquivos de input e output
+    #Contador de token
+    token_num = 0
     #Variavel aux
     aux_ = 1
+
     while 1:
         #Procura proxima caracter
         if aux_ == 1:
             char = _in.read(1)
+            token_num += 1
             aux_ = 0
         #Escreve no arquivo de saida o topo da pilha + a caracter atual da fita
         _out.write(str(stack[-1]) + ',' + char + '\n')
@@ -99,11 +101,11 @@ def start(_in,_out): #Acesso aos arquivos de input e output
         aux_ = exec_lr_table(stack[-1],char)
         #Se o topo da pilha for '$' aceita a cadeia e encerra
         if stack[-1] == '$':
-            print('Aceita')
+            #print('Aceita')
             _out.write('Acc')
             break
-        #Se caracter da fita é final de sentença '$' e topo da pilha é erro 'X' encerra
-        if stack[-2] == 'X' and char == '$':
-            print('Rejeita')
-            _out.write('Rej')
+        #Se o topo da pilha for 'X' rejeita a cadeia e encerra
+        if stack[-1] == 'X':
+            #print('Rejeita')
+            _out.write(f'- Erro! Linha:{list_t[token_num][1]}, Token:"{list_t[token_num][2]}"')
             break
