@@ -136,4 +136,4 @@ def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
         token_str += char
     #Escreve todos os erros no arquivo de saida
     for i in list_e:
-        _out.write(f'\n - Erro! Linha:{i[1]}, Token:"{i[2]}"')
+        _out.write(f'\n - Erro lexico! Linha:{i[1]}, Token:"{i[2]}"')

@@ -81,7 +81,7 @@ def exec_lr_table(state,char): #Caracter atual da fita e estado no topo da pilha
                     return 0
     #Empilha 'X' como simbolo de rejeicao
     stack.append(error_symbol)
-    return 1
+    return 0
 
 def start(_in,_out,list_t): #Acesso aos arquivos de input e output
     #Contador de token
@@ -102,10 +102,12 @@ def start(_in,_out,list_t): #Acesso aos arquivos de input e output
         #Se o topo da pilha for '$' aceita a cadeia e encerra
         if stack[-1] == '$':
             #print('Aceita')
-            _out.write('Acc')
+            _out.write('Acc\n')
             break
         #Se o topo da pilha for 'X' rejeita a cadeia e encerra
         if stack[-1] == 'X':
             #print('Rejeita')
-            _out.write(f'- Erro! Linha:{list_t[token_num][1]}, Token:"{list_t[token_num][2]}"')
+            _out.write('Rej\n')
+            if not char == 'X':
+                _out.write(f'- Erro sintatico! Linha:{list_t[token_num][1]}, Token:"{list_t[token_num][2]}"')
             break
