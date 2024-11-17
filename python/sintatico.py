@@ -83,7 +83,7 @@ def exec_lr_table(state,char): #Caracter atual da fita e estado no topo da pilha
     stack.append(error_symbol)
     return 0
 
-def start(_in,_out,list_t): #Acesso aos arquivos de input e output
+def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
     #Contador de token
     token_num = -1
     #Variavel aux
@@ -109,5 +109,6 @@ def start(_in,_out,list_t): #Acesso aos arquivos de input e output
             #print('Rejeita')
             _out.write('Rej\n')
             if not char == 'X':
-                _out.write(f'- Erro sintatico! Linha:{list_t[token_num][1]}, Token:"{list_t[token_num][2]}"')
+                _out.write(f'- Erro sintatico! Linha:{list_t[token_num][1]}, Token:"{list_t[token_num][2]}"\n')
+                list_e.append((token_num, list_t[token_num][1], list_t[token_num][2], 'S'))
             break

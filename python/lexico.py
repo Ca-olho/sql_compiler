@@ -106,11 +106,11 @@ def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
                 #add caracter ao arquivo de saida
                 _out.write(output_symbol[final_state.index(state)])
                 #add cadeia, linha e numToken a lista de tokens
-                list_t.append((token_num, line, token_str))
+                list_t.append((token_num, line, token_str, output_symbol[final_state.index(state)]))
                 #Se o stado final é erro, add a lista de erros
                 if state == error_state:
                     #print(f"Erro! Linha:{line}, Token:{token_num}")
-                    list_e.append((token_num, line, token_str))
+                    list_e.append((token_num, line, token_str, 'L'))
                 #Reseta a cadeia atual
                 token_str = ''
             #Se é pra ignorar não salva
@@ -120,7 +120,7 @@ def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
                 #add caracter ao arquivo de saida
                 _out.write(char)
                 #add caracter, linha e numToken a lista de tokens
-                list_t.append((token_num, line, char))
+                list_t.append((token_num, line, char, 'P'))
             #Se é '\n', linha+1
             if char == '\n':
                 line += 1
@@ -136,4 +136,4 @@ def start(_in,_out,list_t,list_e): #Acesso aos arquivos de input e output
         token_str += char
     #Escreve todos os erros no arquivo de saida
     for i in list_e:
-        _out.write(f'\n - Erro lexico! Linha:{i[1]}, Token:"{i[2]}"')
+        _out.write(f'\n - Erro lexico! Linha:{i[1]}, Token:"{i[2]}"\n')
