@@ -26,6 +26,6 @@ try:
     semantico.start(_lex,_out,token_list,error_list)
     
     #print(token_list)
-    print(error_list)
+    #print(error_list)
 except Exception as e: 
     print("erro!", str(e))
